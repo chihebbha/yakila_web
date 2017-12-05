@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+  </head>
+  <body ng-app="yakilaWebApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container" ng-controller="UserCtrl">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">yakilaWeb</a>
+          </div>
+          <button g-login id="signInButton" class="loginBtn loginBtn--google" type="button">Google Login</button>
+          <button fb-login class="loginBtn loginBtn--facebook"  type="button">facebook Login</button>
+          <button  ng-click="logout()" type="button">facebook logout</button>
+          <div ng-if="(userImageUrl!=null)&&(userName!==null)"><img ng-src="{{userImageUrl}}">{{userName}}</div>
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#/">Home</a></li>
+              <li><a ng-href="#/about">About</a></li>
+              <li><a ng-href="#/">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+    <div ng-view=""></div>
+    </div>
+
+    <div class="footer">
+      <div class="container" >
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+
+      </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <!-- <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script> -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!--          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ -->
+
+
+
+<!--  <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+
+ <script type="text/javascript">
+window.onLoadCallback = function(){
+  gapi.auth2.init({
+      client_id: '300250087957-p6n8iqcvofg0k57dio5dr8g82docq0p7.apps.googleusercontent.com'
+    });
+}
+</script>
+ -->
+
+
+
+
+  <script src="https://apis.google.com/js/api.js"></script>    
+    <script type="text/javascript">
+        function onSignIn(googleUser) {
+            console.log( googleUser);
+            // Useful data for your client-side scripts:
+            //var profile = googleUser.getBasicProfile();
+        };
+
+        gapi.load('auth2', function() {
+            gapi.auth2.init({
+                client_id: "300250087957-79917btks8boslirn0gqivb98h70gib9.apps.googleusercontent.com"})
+                .then(function(auth2) {
+                console.log( "signed in: " + auth2.isSignedIn.get() );  
+                auth2.isSignedIn.listen(onSignIn);
+                var button = document.querySelector('#signInButton');
+                button.addEventListener('click', function() {
+                  auth2.signIn();
+                });
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angularjs-social-login/angularjs-social-login.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+        
+        <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+     
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/fb.js"></script>
+        <script src="constants.js"></script>
+
+        <!-- endbuild -->
+
+        
+
+</body>
+</html>
