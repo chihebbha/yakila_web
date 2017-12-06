@@ -1,0 +1,39 @@
+ <form action="/action_page.php">
+
+  nom:<br>
+  <input type="text" name="nom" ng-value="userName"><br>
+  prénom:<br>
+  <input type="text" name="prenom" ><br><br>
+    email:<br>
+  <input type="email" name="email" ng-value="email"><br><br>
+    password:<br>
+  <input type="password" name="password" value="Mouse"><br><br>
+    télephone:<br>
+  <input type="phone" name="tel" value="Mouse"><br><br>
+    ville:<br>
+<select ng-model="ville">
+  <option ng-value="paris">paris</option>
+  <option ng-value="nice">nice</option>
+  <option ng-value="marseille">marseille</option>
+</select><br><br>
+    sexe:<br>
+<select ng-model="sexe">
+  <option ng-value="homme">homme</option>
+  <option ng-value="femme">nice</option>
+</select>
+<div ng-if="userDetails.provider==='google'">
+<br><br>
+    google:<br><button>google</button>
+    </div>
+<div ng-if="userDetails.provider==='facebook'">
+    <br><br>
+    facebook:<br><button>facebook</button>
+    </div>
+
+    <br><br>
+    ville:<br>
+    <div><input ng-value="geolocation" ng-model="chosenPlace" googleplace/></div>  
+
+    <br><br>
+    <input type="submit" value="Submit">
+</form> 

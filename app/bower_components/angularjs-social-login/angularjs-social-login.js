@@ -100,6 +100,7 @@ socialLogin.factory("socialLoginService", ['$window', '$rootScope',
 					});
 					break;
 			}
+			console.log("logout")
 		},
 		setProvider: function(provider){
 			$window.localStorage.setItem('_login_provider', provider);
