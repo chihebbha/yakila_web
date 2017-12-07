@@ -99,7 +99,7 @@ window.onLoadCallback = function(){
  -->
 
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 
   <script src="https://apis.google.com/js/api.js"></script>    
     <script type="text/javascript">
@@ -113,7 +113,6 @@ window.onLoadCallback = function(){
             gapi.auth2.init({
                 client_id: "300250087957-79917btks8boslirn0gqivb98h70gib9.apps.googleusercontent.com"})
                 .then(function(auth2) {
-                console.log( "signed in: " + auth2.isSignedIn.get() );  
                 auth2.isSignedIn.listen(onSignIn);
                 var button = document.querySelector('#signInButton');
                 button.addEventListener('click', function() {

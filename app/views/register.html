@@ -1,39 +1,52 @@
- <form action="/action_page.php">
+<form >
+  nom:
+  <br>
+  <input type="text" name="nom" ng-value="userName" ng-init="saveUser.name=userName" ng-model="saveUser.name">
+  <br> prénom:
+  <br>
+  <input type="text" name="prenom" ng-model="saveUser.lastname">
+  <br>
+  <br> email:
+  <br>
+  <input type="email" name="email" ng-value="email" ng-init="saveUser.email=email" ng-model="saveUser.email">
+  <div ng-if="(type!=='facebook')&&(type!=='google')">
+  <br>
+  <br> password:
+  <br>
+  <input type="password" name="password"  ng-model="saveUser.password">
+  </div>
+  <br>
+  <br> télephone:
+  <br>
+  <input type="phone" name="tel"  ng-model="saveUser.tel">
 
-  nom:<br>
-  <input type="text" name="nom" ng-value="userName"><br>
-  prénom:<br>
-  <input type="text" name="prenom" ><br><br>
-    email:<br>
-  <input type="email" name="email" ng-value="email"><br><br>
-    password:<br>
-  <input type="password" name="password" value="Mouse"><br><br>
-    télephone:<br>
-  <input type="phone" name="tel" value="Mouse"><br><br>
-    ville:<br>
-<select ng-model="ville">
-  <option ng-value="paris">paris</option>
-  <option ng-value="nice">nice</option>
-  <option ng-value="marseille">marseille</option>
-</select><br><br>
-    sexe:<br>
-<select ng-model="sexe">
-  <option ng-value="homme">homme</option>
-  <option ng-value="femme">nice</option>
-</select>
-<div ng-if="userDetails.provider==='google'">
-<br><br>
-    google:<br><button>google</button>
-    </div>
-<div ng-if="userDetails.provider==='facebook'">
-    <br><br>
-    facebook:<br><button>facebook</button>
-    </div>
-
-    <br><br>
-    ville:<br>
-    <div><input ng-value="geolocation" ng-model="chosenPlace" googleplace/></div>  
-
-    <br><br>
-    <input type="submit" value="Submit">
-</form> 
+  <br>
+  <br> sexe:
+  <br>
+  <select ng-model="saveUser.sex">
+    <option ng-value="homme">homme</option>
+    <option ng-value="femme">femme</option>
+  </select>
+  <div ng-if="userDetails.provider==='google'" ng-init="saveUser.type=userDetails.provider">
+    <br>
+    <br> google:
+    <br>
+    <button>google</button>
+  </div>
+  <div ng-if="userDetails.provider==='facebook'" ng-init="saveUser.type=userDetails.provider">
+    <br>
+    <br> facebook:
+    <br>
+    <button>facebook</button>
+  </div>
+  <br>
+  <br> ville:
+  <br>
+  <div>
+    <input ng-init="saveUser.uid=uid;saveUser.type=type;"  ng-model="saveUser.city" googleplace/>
+  <img  ng-click="saveUser.city=geolocation" style="height: 20px" src="data:image/svg+xml;base64,
+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDU2MSA1NjEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDU2MSA1NjE7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48Zz4KCTxnIGlkPSJncHMtZml4ZWQiPgoJCTxwYXRoIGQ9Ik0yODAuNSwxNzguNWMtNTYuMSwwLTEwMiw0NS45LTEwMiwxMDJjMCw1Ni4xLDQ1LjksMTAyLDEwMiwxMDJjNTYuMSwwLDEwMi00NS45LDEwMi0xMDIgICAgQzM4Mi41LDIyNC40LDMzNi42LDE3OC41LDI4MC41LDE3OC41eiBNNTA3LjQ1LDI1NUM0OTQuNywxNDcuOSw0MTAuNTUsNjMuNzUsMzA2LDUzLjU1VjBoLTUxdjUzLjU1ICAgIEMxNDcuOSw2My43NSw2My43NSwxNDcuOSw1My41NSwyNTVIMHY1MWg1My41NUM2Ni4zLDQxMy4xLDE1MC40NSw0OTcuMjUsMjU1LDUwNy40NVY1NjFoNTF2LTUzLjU1ICAgIEM0MTMuMSw0OTQuNyw0OTcuMjUsNDEwLjU1LDUwNy40NSwzMDZINTYxdi01MUg1MDcuNDV6IE0yODAuNSw0NTlDMTgxLjA1LDQ1OSwxMDIsMzc5Ljk1LDEwMiwyODAuNVMxODEuMDUsMTAyLDI4MC41LDEwMiAgICBTNDU5LDE4MS4wNSw0NTksMjgwLjVTMzc5Ljk1LDQ1OSwyODAuNSw0NTl6IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIHN0eWxlPSJmaWxsOiMwNzAwRkYiIGRhdGEtb2xkX2NvbG9yPSIjMDAwMDAwIj48L3BhdGg+Cgk8L2c+CjwvZz48L2c+IDwvc3ZnPg==" />
+  <br>
+  <br>
+  <input type="button" ng-click="addUser(saveUser)"  value="Submit">
+</form>

@@ -11,11 +11,29 @@
 var Handler = function($scope, $http, CONSTANTS, $rootScope, socialLoginService,
   $cookies, $window, $location) {
 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      $scope.$apply(function() {
+        $scope.position = position;
+        $http.get("http://maps.googleapis.com/maps/api/geocode/json?latlng=36.84755570,10.19842850&sensor=true")
+          .then(function(success) {
+              console.log(success.data.results[0].formatted_address)
+              $scope.geolocation = success.data.results[0].formatted_address
+              console.log(success)
+            },
+            function(err) {
+              console.log(err)
+            })
+      });
+    });
 
+  }
 
   $scope.userImageUrl = $cookies.get('user.imageUrl');
   $scope.userName = $cookies.get('user.name');
   $scope.email = $cookies.get('user.email');
+  $scope.uid = $cookies.get('user.uid');
+  $scope.type = $cookies.get('user.type');
 
   $scope.logout = function() {
     socialLoginService.logout()
@@ -27,33 +45,54 @@ var Handler = function($scope, $http, CONSTANTS, $rootScope, socialLoginService,
   }
 
   $scope.addUser = function(saveForm) {
+    if (saveForm.provider == "google") {
+      saveForm.gmail = saveForm.uid
+      saveForm.password = ""
+    }
+    if (saveForm.provider == "facebook") {
+      saveForm.fb = saveForm.uid
+      saveForm.password = ""
+    }
+    var userObject = new Object()
+
+    console.log("------------------")
+
+    userObject = JSON.parse(
+      JSON.stringify({
+        "name": saveForm.name,
+        "lastname": saveForm.lastname,
+        "city": saveForm.city,
+        "email": saveForm.email,
+        "number": saveForm.number,
+        'job': saveForm.job,
+        'password': saveForm.password,
+        'type': saveForm.type,
+        'path': saveForm.path,
+        'gmail': saveForm.gmail,
+        'fb': saveForm.fb,
+        'favourite': saveForm.favourite,
+        'path_photo_profil': saveForm.path_photo_profil,
+        'list_path_image': saveForm.list_path_image,
+        "sex": saveForm.sex,
+        "token": saveForm.token
+      })
+    )
+    console.log(userObject)
+
 
     $http({
-      url: CONSTANTS.API_HOST + '/users',
+      url: 'http://localhost:8080/users',
       method: 'post',
       headers: {
-        data: {
-          "name": saveForm.name,
-          "lastname": saveForm.lastname,
-          "city": saveForm.city,
-          "email": saveForm.email,
-          "number": saveForm.number,
-          'job': saveForm.job,
-          'password': saveForm.password,
-          'type': saveForm.type,
-          'path': saveForm.path,
-          'gmail': saveForm.gmail,
-          'fb': saveForm.fb,
-          'favourite': saveForm.favourite,
-          'path_photo_profil': saveForm.path_photo_profil,
-          'list_path_image': saveForm.list_path_image,
-          "sex": saveForm.sex,
-          "token": saveForm.token
-        }
-      }
+        "Content-Type": "application/json"
+      },
+      data: userObject
+
+    }).then(function (data) {
+    	$location.path('/')
     })
 
-
+    
   }
 
 
@@ -69,7 +108,6 @@ var Handler = function($scope, $http, CONSTANTS, $rootScope, socialLoginService,
       for (var i = 1; i >= 0; i--) {
 
         $scope.userDetails = userDetails
-
         var fbUser = new Object()
         var gUser = new Object()
         fbUser.email = userDetails.email
@@ -82,7 +120,10 @@ var Handler = function($scope, $http, CONSTANTS, $rootScope, socialLoginService,
         $scope.email = $cookies.get('user.email');
         $cookies.put('user.name', userDetails.name);
         $scope.userName = $cookies.get('user.name');
-        console.log($scope.email)
+        $cookies.put('user.uid', userDetails.uid);
+        $scope.uid = $cookies.get('user.uid');
+        $cookies.put('user.type', userDetails.provider);
+        $scope.type = $cookies.get('user.type');
         if (userDetails.provider === "facebook") {
 
           $http({
@@ -102,7 +143,6 @@ var Handler = function($scope, $http, CONSTANTS, $rootScope, socialLoginService,
                 if (err.data.message === "User Not Found") {
 
                   console.log("register redirection")
-                  console.log($location)
                   $location.path('/register')
                   $scope.userDetails = userDetails
                 }
@@ -150,19 +190,6 @@ var Handler = function($scope, $http, CONSTANTS, $rootScope, socialLoginService,
   })
 
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      $scope.$apply(function() {
-        $scope.position = position;
-        $http.get("http://maps.googleapis.com/maps/api/geocode/json?latlng=36.84755570,10.19842850&sensor=true")
-          .then(function(success) {
-            console.log(success.data.results[0].formatted_address)
-            $scope.geolocation = success.data.results[0].formatted_address
-          })
-      });
-    });
-
-  }
 }
 
 
